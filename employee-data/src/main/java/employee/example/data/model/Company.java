@@ -7,6 +7,7 @@ public class Company extends BaseEntity{
     private String companyName;
     private String companyLocation;
     private String companyType;
+    private Boolean status;
     private Set<Employee> employeeSet;
 
     public Company() {
@@ -35,6 +36,14 @@ public class Company extends BaseEntity{
 
     public void setCompanyType(String companyType) {
         this.companyType = companyType;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Set<Employee> getEmployeeSet() {

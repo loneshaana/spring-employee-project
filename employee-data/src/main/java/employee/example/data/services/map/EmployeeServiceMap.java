@@ -29,6 +29,7 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
 
     @Override
     public Employee save(Employee employee) {
+        employee.setStatus(true); // set active status on save
         return super.save(employee);
     }
 

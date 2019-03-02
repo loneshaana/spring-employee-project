@@ -2,9 +2,7 @@ package example.employee.main.controllers;
 
 import employee.example.data.model.Company;
 import employee.example.data.services.CompanyService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -20,5 +18,16 @@ public class CompanyController {
     @GetMapping("/get")
     public Set<Company> getAllCompanies(){
         return companyService.getAll();
+    }
+
+    @GetMapping("/get/{id}")
+    public Company getAllCompanies(@PathVariable Long id){
+        return companyService.findById(id);
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public Company deleteById(@PathVariable Long id){
+        return companyService.deleteById(id);
     }
 }

@@ -23,6 +23,7 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     @Override
     public Company save(Company object) {
         if(object != null){
+            object.setStatus(true);
             Company savedCmp = super.save(object); // save the company first ,so that its id gets generated
             object.getEmployeeSet().forEach(employee -> {
                 if(employee.getCompanyId() == null){
@@ -42,7 +43,7 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
 
     @Override
     public void delete(Company object) {
-        super.delete(object);
+        super.delete(object); //complete remove
     }
 
     @Override
@@ -57,7 +58,8 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
 
         foundEmployeeSet.forEach(employee -> {
             if(employee.getId().equals(empId)){
-                 foundEmployeeSet.remove(employee);
+                employee.setStatus(false); // Always save the record , internally only change their status
+//                 foundEmployeeSet.remove(employee);
             }
         });
 
