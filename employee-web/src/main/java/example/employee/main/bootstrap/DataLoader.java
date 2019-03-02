@@ -27,7 +27,9 @@ public class DataLoader implements CommandLineRunner {
         employee.setFirstName("Anwar");
         employee.setLastName("Ul haq");
 
-        company.getEmployeeSet().add(employee);
+        Employee savedEmp = employeeService.save(employee);
+        company.getEmployeeSet().add(savedEmp);
+
         companyService.save(company);
 
         Employee newEmp = new Employee();
@@ -39,7 +41,10 @@ public class DataLoader implements CommandLineRunner {
 
         newEmp.setFirstName("Lal");
         newEmp.setLastName("Mohan");
-        newCom.getEmployeeSet().add(newEmp);
+
+        Employee savedEmp1 = employeeService.save(newEmp);
+        newCom.getEmployeeSet().add(savedEmp1);
+
         companyService.save(newCom);
     }
 }

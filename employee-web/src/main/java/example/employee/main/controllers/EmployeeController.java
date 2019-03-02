@@ -38,4 +38,10 @@ public class EmployeeController {
     public Employee replaceEmployee(@RequestBody Employee employee , @PathVariable Long id){
         return  employeeService.replaceAtId(id,employee);
     }
+
+    @DeleteMapping(value = {"delete/{id}"})
+    public Employee deleteEmployee(@PathVariable Long id){
+         return  employeeService.deleteById(id);
+    }
+
 }

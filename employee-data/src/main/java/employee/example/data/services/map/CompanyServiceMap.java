@@ -3,18 +3,12 @@ package employee.example.data.services.map;
 import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
 import employee.example.data.services.CompanyService;
-import employee.example.data.services.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class CompanyServiceMap extends AbstractMapService<Company,Long> implements CompanyService {
-    private EmployeeService employeeService;
-
-    public CompanyServiceMap(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @Override
     public Set<Company> getAll() {
@@ -31,9 +25,7 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
         if(object != null){
             Company savedCmp = super.save(object); // save the company first ,so that its id gets generated
             object.getEmployeeSet().forEach(employee -> {
-                if(employee.getId() == null){
-                    Employee savedEmp = employeeService.save(employee);
-                    employee.setId(savedEmp.getId());
+                if(employee.getCompanyId() == null){
                     employee.setCompanyId(savedCmp.getId());
                 }
             });
@@ -44,8 +36,8 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     }
 
     @Override
-    public void deleteById(Long id) {
-        super.deleteById(id);
+    public Company deleteById(Long id) {
+        return super.deleteById(id);
     }
 
     @Override
@@ -56,6 +48,20 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     @Override
     public Company replaceAtId(Long aLong, Company object) {
         return null;
+    }
+
+    @Override
+    public Boolean deleteEmployee(Long companyId,Long empId){
+        Company foundCompany = this.findById(companyId);
+        Set<Employee> foundEmployeeSet = foundCompany.getEmployeeSet();
+
+        foundEmployeeSet.forEach(employee -> {
+            if(employee.getId().equals(empId)){
+                 foundEmployeeSet.remove(employee);
+            }
+        });
+
+        return true;
     }
 
 }

@@ -15,8 +15,8 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long>{
         return dataMap.get(id);
     }
 
-    void deleteById(ID id){
-        dataMap.remove(id);
+    T deleteById(ID id){
+        return dataMap.remove(id);
     }
 
     void delete(T object){
