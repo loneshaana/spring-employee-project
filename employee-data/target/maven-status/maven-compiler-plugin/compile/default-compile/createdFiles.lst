@@ -1,0 +1,7 @@
+employee/example/data/model/BaseEntity.class
+employee/example/data/model/Employee.class
+employee/example/data/services/map/AbstractMapService.class
+employee/example/data/model/Person.class
+employee/example/data/services/CrudService.class
+employee/example/data/services/map/EmployeeMapService.class
+employee/example/data/services/EmployeeService.class
