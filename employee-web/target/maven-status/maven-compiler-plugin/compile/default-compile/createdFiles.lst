@@ -1,3 +1,4 @@
 example/employee/main/bootstrap/DataLoader.class
 example/employee/main/Main.class
-example/employee/main/controllers/IndexController.class
+example/employee/main/controllers/EmployeeController.class
+example/employee/main/controllers/CompanyController.class

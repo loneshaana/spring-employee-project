@@ -1,23 +1,27 @@
 package employee.example.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Employee  extends Person{
+
+   @OneToMany
+   private Company company;
+
+   @Column(name = "company_id")
    private Long companyId;
 
-   private Boolean status;
+   @Enumerated(EnumType.STRING)
+   @Column(name = "employee_status")
+   private Status status;
 
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
 }

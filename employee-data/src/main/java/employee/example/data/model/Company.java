@@ -1,56 +1,39 @@
 package employee.example.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@Entity
+@Table(name = "company")
 public class Company extends BaseEntity{
+    @Column(name = "company_name")
     private String companyName;
+
+    @Column(name = "company_location")
     private String companyLocation;
+
+    @Column(name = "company_type")
     private String companyType;
-    private Boolean status;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "company_status")
+    private Status status;
+
+    @ManyToMany(mappedBy = "company")
     private Set<Employee> employeeSet;
 
     public Company() {
         this.employeeSet = new HashSet<>();
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyLocation() {
-        return companyLocation;
-    }
-
-    public void setCompanyLocation(String companyLocation) {
-        this.companyLocation = companyLocation;
-    }
-
-    public String getCompanyType() {
-        return companyType;
-    }
-
-    public void setCompanyType(String companyType) {
-        this.companyType = companyType;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Set<Employee> getEmployeeSet() {
-        return employeeSet;
-    }
-
-    public void setEmployeeSet(Set<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
-    }
 }

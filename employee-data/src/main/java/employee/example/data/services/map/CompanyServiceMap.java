@@ -1,13 +1,17 @@
 package employee.example.data.services.map;
 
 import employee.example.data.model.Company;
+import employee.example.data.model.Status;
 import employee.example.data.model.Employee;
 import employee.example.data.services.CompanyService;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Primary
 public class CompanyServiceMap extends AbstractMapService<Company,Long> implements CompanyService {
 
     @Override
@@ -17,13 +21,15 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
 
     @Override
     public Company findById(Long id) {
+        System.out.println("******* FROM THE MAP SERVICE*****");
+        System.out.println("******* FROM THE MAP SERVICE*****");
         return super.findById(id);
     }
 
     @Override
     public Company save(Company object) {
         if(object != null){
-            object.setStatus(true);
+            object.setStatus(Status.ACTIVE);
             Company savedCmp = super.save(object); // save the company first ,so that its id gets generated
             object.getEmployeeSet().forEach(employee -> {
                 if(employee.getCompanyId() == null){
@@ -37,8 +43,8 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     }
 
     @Override
-    public Company deleteById(Long id) {
-        return super.deleteById(id);
+    public void deleteById(Long id) {
+         super.deleteById(id);
     }
 
     @Override
@@ -58,7 +64,7 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
 
         foundEmployeeSet.forEach(employee -> {
             if(employee.getId().equals(empId)){
-                employee.setStatus(false); // Always save the record , internally only change their status
+                employee.setStatus(Status.INACTIVE); // Always save the record , internally only change their status
 //                 foundEmployeeSet.remove(employee);
             }
         });

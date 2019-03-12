@@ -16,7 +16,8 @@ public class CompanyController {
     }
 
     @GetMapping("/get")
-    public Set<Company> getAllCompanies(){
+    public Set<Company> getAll(){
+        System.out.println("GET ALL COMPANIES");
         return companyService.getAll();
     }
 
@@ -26,8 +27,8 @@ public class CompanyController {
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public Company deleteById(@PathVariable Long id){
-        return companyService.deleteById(id);
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public Company deleteById(@PathVariable Long id){
+//        return companyService.deleteById(id);
+//    }
 }

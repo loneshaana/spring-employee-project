@@ -15,8 +15,8 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long>{
         return dataMap.get(id);
     }
 
-    T deleteById(ID id){
-        return dataMap.remove(id);
+    void deleteById(ID id){
+         dataMap.remove(id);
     }
 
     void delete(T object){
@@ -44,6 +44,9 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long>{
         Long nextId = null;
         try{
             nextId = Collections.max(dataMap.keySet()) +1;
+            Random random = new Random();
+            nextId =  ((random.nextLong() * random.nextInt(91) ) / (random.nextInt(91)+1) ) << nextId;
+            if(nextId <0) nextId = -1 * nextId;
         }catch (NoSuchElementException e){
             nextId = 1L;
         }

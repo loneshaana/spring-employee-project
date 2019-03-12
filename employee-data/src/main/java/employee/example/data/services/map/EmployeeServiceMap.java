@@ -1,6 +1,7 @@
 package employee.example.data.services.map;
 
 import employee.example.data.model.Employee;
+import employee.example.data.model.Status;
 import employee.example.data.services.CompanyService;
 import employee.example.data.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,15 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
 
     @Override
     public Employee save(Employee employee) {
-        employee.setStatus(true); // set active status on save
+        employee.setStatus(Status.ACTIVE); // set active status on save
         return super.save(employee);
     }
 
     @Override
-    public Employee deleteById(Long id) {
+    public void deleteById(Long id) {
         Employee emp =  this.findById(id);
         companyService.deleteEmployee(emp.getCompanyId(),id);
-        return super.deleteById(id);
+         super.deleteById(id);
     }
 
     @Override
