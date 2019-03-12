@@ -5,11 +5,13 @@ import employee.example.data.model.Status;
 import employee.example.data.services.CompanyService;
 import employee.example.data.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile("springmap")
 public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implements EmployeeService {
     private final CompanyService companyService;
 
@@ -19,8 +21,9 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
     }
 
     @Override
-    public Set<Employee> getAll(){
-        return super.getAll();
+    public Set<Employee> findAll(){
+        System.out.println("Accessing from map");
+        return super.findAll();
     }
 
     @Override

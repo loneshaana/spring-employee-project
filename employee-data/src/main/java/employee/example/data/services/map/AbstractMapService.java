@@ -7,7 +7,7 @@ import java.util.*;
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long>{
     protected Map<Long,T> dataMap = new HashMap<>();
 
-    Set<T> getAll(){
+    Set<T> findAll(){
         return new HashSet<>(dataMap.values());
     }
 

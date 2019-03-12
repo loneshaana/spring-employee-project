@@ -7,19 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @Profile("springjpa")
 public class CompanyJpaImpl implements CompanyService {
 
+    private final CompanyRepository companyRepository;
     @Autowired
-    private CompanyRepository companyRepository;
-
-    /*@Autowired
     public CompanyJpaImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
-    }*/
+    }
 
     @Override
     public Boolean deleteEmployee(Long companyId, Long empId) {
@@ -27,8 +26,11 @@ public class CompanyJpaImpl implements CompanyService {
     }
 
     @Override
-    public Set<Company> getAll() {
-        return null;
+    public Set<Company> findAll() {
+        System.out.println("Company FindAll using jpa");
+        Set<Company> companies = new HashSet<>();
+        companyRepository.findAll().forEach(companies::add);
+        return companies;
     }
 
     @Override

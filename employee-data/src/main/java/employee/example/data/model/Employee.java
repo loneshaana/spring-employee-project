@@ -9,15 +9,15 @@ import javax.persistence.*;
 
 @Setter
 @Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Employee  extends Person{
-
-   @OneToMany
+   @ManyToOne
+   @JoinTable(name = "company_employee",joinColumns = @JoinColumn(name = "employee_id"),inverseJoinColumns = @JoinColumn(name = "company_id"))
    private Company company;
 
-   @Column(name = "company_id")
+   @Column(name = "employee_company_id")
    private Long companyId;
 
    @Enumerated(EnumType.STRING)

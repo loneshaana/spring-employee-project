@@ -2,6 +2,10 @@ HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+employee-web/target/
+employee-data/target/
+
+cle
 ### STS ###
 .apt_generated
 .classpath

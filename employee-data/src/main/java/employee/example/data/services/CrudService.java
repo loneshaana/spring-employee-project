@@ -3,7 +3,7 @@ package employee.example.data.services;
 import java.util.Set;
 
 public interface CrudService<T,ID> {
-    public Set<T> getAll();
+    Set<T> findAll();
 
     T findById(ID id);
 

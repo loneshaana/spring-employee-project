@@ -20,7 +20,7 @@ public class EmployeeController {
 
     @GetMapping(value = {"get"})
     public Set<Employee> index(){
-        return employeeService.getAll();
+        return employeeService.findAll();
     }
 
     @GetMapping(value = {"get/{id}"})

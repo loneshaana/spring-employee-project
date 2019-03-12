@@ -2,7 +2,6 @@ package example.employee.main.bootstrap;
 
 import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
-import employee.example.data.repositories.CompanyRepository;
 import employee.example.data.services.CompanyService;
 import employee.example.data.services.EmployeeService;
 import org.springframework.boot.CommandLineRunner;
@@ -25,14 +24,17 @@ public class DataLoader implements CommandLineRunner {
         Company company = new Company();
         company.setCompanyName("Milvik Technologies");
         company.setCompanyLocation("Bengalore");
+
         employee.setFirstName("Anwar");
         employee.setLastName("Ul haq");
 
-        Employee savedEmp = employeeService.save(employee);
-        System.out.println("Loaded employees");
-        company.getEmployeeSet().add(savedEmp);
+        Company savedCompany = companyService.save(company);
 
-        companyService.save(company);
+        employee.setCompanyId(savedCompany.getId());
+
+        employeeService.save(employee);
+
+        System.out.println("Loaded employees");
 
         Employee newEmp = new Employee();
         Company newCom = new Company();
@@ -44,10 +46,11 @@ public class DataLoader implements CommandLineRunner {
         newEmp.setFirstName("Lal");
         newEmp.setLastName("Mohan");
 
-        Employee savedEmp1 = employeeService.save(newEmp);
-        newCom.getEmployeeSet().add(savedEmp1);
 
-        companyService.save(newCom);
+        Company newSavedCmp = companyService.save(newCom);
+        newEmp.setCompanyId(newSavedCmp.getId());
+        employeeService.save(newEmp);
+
         System.out.println("Loaded Companies");
     }
 }

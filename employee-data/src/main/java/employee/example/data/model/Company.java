@@ -2,6 +2,7 @@ package employee.example.data.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Setter
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "company")
@@ -29,11 +31,7 @@ public class Company extends BaseEntity{
     @Column(name = "company_status")
     private Status status;
 
-    @ManyToMany(mappedBy = "company")
-    private Set<Employee> employeeSet;
-
-    public Company() {
-        this.employeeSet = new HashSet<>();
-    }
+    @OneToMany(mappedBy = "company")
+    private Set<Employee> employeeSet = new HashSet<>();
 
 }

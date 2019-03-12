@@ -2,21 +2,20 @@ package employee.example.data.services.map;
 
 import employee.example.data.model.Company;
 import employee.example.data.model.Status;
-import employee.example.data.model.Employee;
 import employee.example.data.services.CompanyService;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-@Primary
+@Profile("springmap")
 public class CompanyServiceMap extends AbstractMapService<Company,Long> implements CompanyService {
 
     @Override
-    public Set<Company> getAll() {
-        return super.getAll();
+    public Set<Company> findAll() {
+        System.out.println("Accessing from map");
+        return super.findAll();
     }
 
     @Override
@@ -31,11 +30,11 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
         if(object != null){
             object.setStatus(Status.ACTIVE);
             Company savedCmp = super.save(object); // save the company first ,so that its id gets generated
-            object.getEmployeeSet().forEach(employee -> {
-                if(employee.getCompanyId() == null){
-                    employee.setCompanyId(savedCmp.getId());
-                }
-            });
+//            object.getEmployeeSet().forEach(employee -> {
+//                if(employee.getCompanyId() == null){
+//                    employee.setCompanyId(savedCmp.getId());
+//                }
+//            });
             return savedCmp;
         }else{
             throw new Error("Object Is Required");
@@ -60,14 +59,14 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     @Override
     public Boolean deleteEmployee(Long companyId,Long empId){
         Company foundCompany = this.findById(companyId);
-        Set<Employee> foundEmployeeSet = foundCompany.getEmployeeSet();
+//        Set<Employee> foundEmployeeSet = foundCompany.getEmployeeSet();
 
-        foundEmployeeSet.forEach(employee -> {
-            if(employee.getId().equals(empId)){
-                employee.setStatus(Status.INACTIVE); // Always save the record , internally only change their status
-//                 foundEmployeeSet.remove(employee);
-            }
-        });
+//        foundEmployeeSet.forEach(employee -> {
+//            if(employee.getId().equals(empId)){
+//                employee.setStatus(Status.INACTIVE); // Always save the record , internally only change their status
+////                 foundEmployeeSet.remove(employee);
+//            }
+//        });
 
         return true;
     }

@@ -18,7 +18,7 @@ public class CompanyController {
     @GetMapping("/get")
     public Set<Company> getAll(){
         System.out.println("GET ALL COMPANIES");
-        return companyService.getAll();
+        return companyService.findAll();
     }
 
     @GetMapping("/get/{id}")
