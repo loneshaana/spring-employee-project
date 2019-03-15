@@ -38,7 +38,7 @@ public class DataLoader implements CommandLineRunner {
 
         Company savedCompany = companyService.save(company);
 
-        employee.setCompany( savedCompany);
+        employee.setCompany(savedCompany);
 
         Employee savedEmp = employeeService.save(employee);
 

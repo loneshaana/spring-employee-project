@@ -2,7 +2,6 @@ package employee.example.data.services;
 
 import employee.example.data.model.Result;
 
-import java.util.Set;
 
 public interface CrudService<T,ID> {
 

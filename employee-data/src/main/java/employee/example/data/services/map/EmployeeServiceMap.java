@@ -2,6 +2,7 @@ package employee.example.data.services.map;
 
 import employee.example.data.commands.EmployeeCommand;
 import employee.example.data.converters.EmployeeToEmployeeCommand;
+import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
 import employee.example.data.model.Result;
 import employee.example.data.model.Status;
@@ -35,13 +36,15 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
 
     @Override
     public Employee save(Employee employee) {
-        employee.setStatus(Status.ACTIVE); // set active status on save
+        // employee stores the company Details;
+        Company company = employee.getCompany();
+        company.getEmployeeSet().add(employee);
         return super.save(employee);
     }
 
     @Override
     public Result deleteById(Long id) {
-        return new Result(false);
+        return super.deleteById(id);
     }
 
     @Override

@@ -13,8 +13,13 @@ public abstract class AbstractMapService <T extends BaseEntity, ID extends Long>
     }
 
     Result deleteById(ID id){
-          dataMap.remove(id);
-          return new Result(false);
+        if(dataMap.keySet().contains(id)) {
+            dataMap.remove(id);
+            return new Result(true);
+        }
+        else {
+            return new Result(false);
+        }
     }
 
     void delete(T object){
