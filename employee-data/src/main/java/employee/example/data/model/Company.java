@@ -1,12 +1,9 @@
 package employee.example.data.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,12 +23,12 @@ public class Company extends BaseEntity{
     @Column(name = "company_type")
     private String companyType;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "company_status")
     private Status status;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Employee> employeeSet = new HashSet<>();
 
 }

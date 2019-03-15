@@ -1,27 +1,31 @@
 package employee.example.data.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+import org.springframework.jmx.export.annotation.ManagedResource;
 
 import javax.persistence.*;
-
 @Setter
 @Getter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee  extends Person{
-   @ManyToOne
-   @JoinTable(name = "company_employee",joinColumns = @JoinColumn(name = "employee_id"),inverseJoinColumns = @JoinColumn(name = "company_id"))
-   private Company company;
 
-   @Column(name = "employee_company_id")
-   private Long companyId;
+   @ManyToOne
+   @JoinColumn
+   @JsonBackReference
+   private Company company;
 
    @Enumerated(EnumType.STRING)
    @Column(name = "employee_status")
    private Status status;
+
+
+   @Column(name = "salary")
+   private Long salary;
+
+   @Column(name = "role")
+   private Role role;
 
 }

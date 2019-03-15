@@ -4,7 +4,7 @@ import employee.example.data.model.BaseEntity;
 
 import java.util.*;
 
-public abstract class AbstractMapService<T extends BaseEntity, ID extends Long>{
+public abstract class AbstractMapService <T extends BaseEntity, ID extends Long>{
     protected Map<Long,T> dataMap = new HashMap<>();
 
     Set<T> findAll(){

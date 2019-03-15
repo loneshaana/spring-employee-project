@@ -1,5 +1,6 @@
 package employee.example.data.services.map;
 
+import employee.example.data.commands.CompanyCommand;
 import employee.example.data.model.Company;
 import employee.example.data.model.Status;
 import employee.example.data.services.CompanyService;
@@ -71,4 +72,8 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
         return true;
     }
 
+    @Override
+    public CompanyCommand saveCompanyCommand(CompanyCommand companyCommand) {
+        return null;
+    }
 }

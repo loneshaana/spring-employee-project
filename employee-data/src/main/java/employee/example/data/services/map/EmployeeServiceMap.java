@@ -40,8 +40,8 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
     @Override
     public void deleteById(Long id) {
         Employee emp =  this.findById(id);
-        companyService.deleteEmployee(emp.getCompanyId(),id);
-         super.deleteById(id);
+        companyService.deleteEmployee(emp.getCompany().getId(),id);
+        super.deleteById(id);
     }
 
     @Override

@@ -11,5 +11,6 @@ import javax.persistence.MappedSuperclass;
 public class Person extends BaseEntity{
     private String firstName;
     private String lastName;
-
+    private String address;
+    private String city;
 }

@@ -1,6 +1,8 @@
 package example.employee.main.controllers;
 
+import employee.example.data.commands.CompanyCommand;
 import employee.example.data.model.Company;
+import employee.example.data.model.Status;
 import employee.example.data.services.CompanyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,11 @@ public class CompanyController {
     @GetMapping("/get/{id}")
     public Company getAllCompanies(@PathVariable Long id){
         return companyService.findById(id);
+    }
+
+    @PostMapping("/add")
+    public CompanyCommand saveOrUpdate(@ModelAttribute CompanyCommand companyCommand){
+        return companyService.saveCompanyCommand(companyCommand);
     }
 
 

@@ -2,6 +2,8 @@ package example.employee.main.bootstrap;
 
 import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
+import employee.example.data.model.Role;
+import employee.example.data.model.Status;
 import employee.example.data.services.CompanyService;
 import employee.example.data.services.EmployeeService;
 import org.springframework.boot.CommandLineRunner;
@@ -21,18 +23,23 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String ...args) throws Exception{
         Employee employee = new Employee();
+
         Company company = new Company();
         company.setCompanyName("Milvik Technologies");
         company.setCompanyLocation("Bengalore");
 
         employee.setFirstName("Anwar");
         employee.setLastName("Ul haq");
+        employee.setStatus(Status.ACTIVE);
+        employee.setRole(Role.SECURITY_CONSULTANT);
+        employee.setCity("Sopore");
+        employee.setAddress("tujar sharief sopore kashmir");
 
         Company savedCompany = companyService.save(company);
 
-        employee.setCompanyId(savedCompany.getId());
+        employee.setCompany( savedCompany);
 
-        employeeService.save(employee);
+        Employee savedEmp = employeeService.save(employee);
 
         System.out.println("Loaded employees");
 
@@ -48,7 +55,12 @@ public class DataLoader implements CommandLineRunner {
 
 
         Company newSavedCmp = companyService.save(newCom);
-        newEmp.setCompanyId(newSavedCmp.getId());
+
+        newEmp.setCompany(newSavedCmp);
+        newEmp.setRole(Role.SOFTWARE_ENGINEER);
+        newEmp.setStatus(Status.INACTIVE);
+        newEmp.setCity("Bengalore");
+        newEmp.setAddress("46 2nd A main road ajmallapa layout");
         employeeService.save(newEmp);
 
         System.out.println("Loaded Companies");

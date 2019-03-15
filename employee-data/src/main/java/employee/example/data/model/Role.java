@@ -1,0 +1,5 @@
+package employee.example.data.model;
+
+public enum Role {
+    SOFTWARE_DELEVEOP,SOFTWARE_ENGINEER,SOFTWARE_ARCHITECTURE,DEVOPS,SECURITY_CONSULTANT
+}
