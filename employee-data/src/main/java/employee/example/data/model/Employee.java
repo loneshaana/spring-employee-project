@@ -2,7 +2,6 @@ package employee.example.data.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import org.springframework.jmx.export.annotation.ManagedResource;
 
 import javax.persistence.*;
 @Setter
@@ -20,7 +19,6 @@ public class Employee  extends Person{
    @Enumerated(EnumType.STRING)
    @Column(name = "employee_status")
    private Status status;
-
 
    @Column(name = "salary")
    private Long salary;

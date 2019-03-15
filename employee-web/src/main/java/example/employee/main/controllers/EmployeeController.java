@@ -1,5 +1,6 @@
 package example.employee.main.controllers;
 
+import employee.example.data.commands.EmployeeCommand;
 import employee.example.data.model.Employee;
 import employee.example.data.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = {"get"})
-    public Set<Employee> index(){
+    public Set<EmployeeCommand> index(){
         return employeeService.findAll();
     }
 

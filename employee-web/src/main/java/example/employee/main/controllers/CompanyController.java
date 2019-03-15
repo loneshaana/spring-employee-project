@@ -2,7 +2,7 @@ package example.employee.main.controllers;
 
 import employee.example.data.commands.CompanyCommand;
 import employee.example.data.model.Company;
-import employee.example.data.model.Status;
+import employee.example.data.model.Result;
 import employee.example.data.services.CompanyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +18,7 @@ public class CompanyController {
     }
 
     @GetMapping("/get")
-    public Set<Company> getAll(){
-        System.out.println("GET ALL COMPANIES");
+    public Set<CompanyCommand> getAll(){
         return companyService.findAll();
     }
 
@@ -33,9 +32,13 @@ public class CompanyController {
         return companyService.saveCompanyCommand(companyCommand);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public Result deleteById(@PathVariable Long id){
+        return companyService.deleteById(id);
+    }
 
-//    @DeleteMapping("/delete/{id}")
-//    public Company deleteById(@PathVariable Long id){
-//        return companyService.deleteById(id);
-//    }
+    @DeleteMapping("/fire/employee/{cid}/{eid}")
+    public Result fireAnEmployee(@PathVariable Long cid, @PathVariable Long eid){
+        return companyService.fireEmployee(cid,eid);
+    }
 }

@@ -1,28 +1,36 @@
 package employee.example.data.services.map;
 
 import employee.example.data.commands.CompanyCommand;
+import employee.example.data.converters.CompanyToCompanyCommand;
 import employee.example.data.model.Company;
+import employee.example.data.model.Result;
 import employee.example.data.model.Status;
 import employee.example.data.services.CompanyService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @Profile("springmap")
 public class CompanyServiceMap extends AbstractMapService<Company,Long> implements CompanyService {
 
+    private final CompanyToCompanyCommand companyToCompanyCommand;
+
+    public CompanyServiceMap(CompanyToCompanyCommand companyToCompanyCommand) {
+        this.companyToCompanyCommand = companyToCompanyCommand;
+    }
+
     @Override
-    public Set<Company> findAll() {
-        System.out.println("Accessing from map");
-        return super.findAll();
+    public Set<CompanyCommand> findAll() {
+        Set<CompanyCommand> companyCommands = new HashSet<>();
+        super.dataMap.values().forEach(company -> companyCommands.add(companyToCompanyCommand.convert(company)));
+        return companyCommands;
     }
 
     @Override
     public Company findById(Long id) {
-        System.out.println("******* FROM THE MAP SERVICE*****");
-        System.out.println("******* FROM THE MAP SERVICE*****");
         return super.findById(id);
     }
 
@@ -43,8 +51,10 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     }
 
     @Override
-    public void deleteById(Long id) {
-         super.deleteById(id);
+    public Result deleteById(Long id) {
+
+        super.deleteById(id);
+        return new Result(true);
     }
 
     @Override
@@ -58,8 +68,8 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     }
 
     @Override
-    public Boolean deleteEmployee(Long companyId,Long empId){
-        Company foundCompany = this.findById(companyId);
+    public Result fireEmployee(Long companyId,Long empId){
+//        Company foundCompany = this.findById(companyId);
 //        Set<Employee> foundEmployeeSet = foundCompany.getEmployeeSet();
 
 //        foundEmployeeSet.forEach(employee -> {
@@ -69,7 +79,7 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
 //            }
 //        });
 
-        return true;
+        return new Result(false);
     }
 
     @Override

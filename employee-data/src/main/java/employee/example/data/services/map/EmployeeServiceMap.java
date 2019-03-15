@@ -1,29 +1,31 @@
 package employee.example.data.services.map;
 
+import employee.example.data.commands.EmployeeCommand;
+import employee.example.data.converters.EmployeeToEmployeeCommand;
 import employee.example.data.model.Employee;
+import employee.example.data.model.Result;
 import employee.example.data.model.Status;
-import employee.example.data.services.CompanyService;
 import employee.example.data.services.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @Profile("springmap")
 public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implements EmployeeService {
-    private final CompanyService companyService;
+    private EmployeeToEmployeeCommand employeeToEmployeeCommand;
 
-    @Autowired
-    public EmployeeServiceMap(CompanyService companyService) {
-        this.companyService = companyService;
+    public EmployeeServiceMap(EmployeeToEmployeeCommand employeeToEmployeeCommand) {
+        this.employeeToEmployeeCommand = employeeToEmployeeCommand;
     }
 
     @Override
-    public Set<Employee> findAll(){
-        System.out.println("Accessing from map");
-        return super.findAll();
+    public Set<EmployeeCommand> findAll() {
+        Set<EmployeeCommand> employeeCommands = new HashSet<>();
+        super.dataMap.values().forEach(employee -> employeeCommands.add(employeeToEmployeeCommand.convert(employee)));
+        return employeeCommands;
     }
 
     @Override
@@ -38,10 +40,8 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
     }
 
     @Override
-    public void deleteById(Long id) {
-        Employee emp =  this.findById(id);
-        companyService.deleteEmployee(emp.getCompany().getId(),id);
-        super.deleteById(id);
+    public Result deleteById(Long id) {
+        return new Result(false);
     }
 
     @Override

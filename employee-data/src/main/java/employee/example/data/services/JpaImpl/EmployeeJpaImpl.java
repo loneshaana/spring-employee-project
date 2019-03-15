@@ -1,9 +1,13 @@
 package employee.example.data.services.JpaImpl;
 
+import employee.example.data.commands.EmployeeCommand;
+import employee.example.data.converters.EmployeeToEmployeeCommand;
 import employee.example.data.model.Employee;
+import employee.example.data.model.Result;
 import employee.example.data.repositories.EmployeeRepository;
 import employee.example.data.services.EmployeeService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,16 +17,18 @@ import java.util.Set;
 @Profile("springjpa")
 public class EmployeeJpaImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final EmployeeToEmployeeCommand employeeToEmployeeCommand;
 
-    public EmployeeJpaImpl(EmployeeRepository employeeRepository) {
+    public EmployeeJpaImpl(EmployeeRepository employeeRepository,EmployeeToEmployeeCommand employeeToEmployeeCommand) {
         this.employeeRepository = employeeRepository;
+        this.employeeToEmployeeCommand = employeeToEmployeeCommand;
     }
 
     @Override
-    public Set<Employee> findAll() {
+    public Set<EmployeeCommand> findAll() {
         System.out.println("Employee FindAll using jpa");
-        Set<Employee> employees = new HashSet<>();
-        employeeRepository.findAll().forEach(employees::add);
+        Set<EmployeeCommand> employees = new HashSet<>();
+        employeeRepository.findAll().forEach(employee ->employees.add(employeeToEmployeeCommand.convert(employee)));
         return employees;
     }
 
@@ -38,8 +44,16 @@ public class EmployeeJpaImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        employeeRepository.deleteById(aLong);
+    public Result deleteById(Long aLong) {
+        Result result = new Result(false);
+        try{
+            employeeRepository.deleteById(aLong);
+            result.setResult(true);
+        }catch (EmptyResultDataAccessException ex){
+            ex.printStackTrace();
+            result.setResult(false);
+        }
+        return result;
     }
 
     @Override

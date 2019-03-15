@@ -1,22 +1,20 @@
 package employee.example.data.services.map;
 
 import employee.example.data.model.BaseEntity;
+import employee.example.data.model.Result;
 
 import java.util.*;
 
 public abstract class AbstractMapService <T extends BaseEntity, ID extends Long>{
     protected Map<Long,T> dataMap = new HashMap<>();
 
-    Set<T> findAll(){
-        return new HashSet<>(dataMap.values());
-    }
-
     T findById(ID id){
         return dataMap.get(id);
     }
 
-    void deleteById(ID id){
-         dataMap.remove(id);
+    Result deleteById(ID id){
+          dataMap.remove(id);
+          return new Result(false);
     }
 
     void delete(T object){
@@ -52,4 +50,5 @@ public abstract class AbstractMapService <T extends BaseEntity, ID extends Long>
         }
         return nextId;
     }
+
 }

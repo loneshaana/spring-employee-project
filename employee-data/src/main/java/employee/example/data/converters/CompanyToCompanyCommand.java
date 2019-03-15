@@ -23,6 +23,7 @@ public class CompanyToCompanyCommand implements Converter<Company, CompanyComman
         companyCommand.setCompanyName(source.getCompanyName());
         companyCommand.setCompanyType(source.getCompanyType());
         companyCommand.setStatus(source.getStatus());
+        companyCommand.setEmployees(source.getEmployeeSet());
         return companyCommand;
     }
 }

@@ -27,6 +27,7 @@ public class DataLoader implements CommandLineRunner {
         Company company = new Company();
         company.setCompanyName("Milvik Technologies");
         company.setCompanyLocation("Bengalore");
+        company.setStatus(Status.ACTIVE);
 
         employee.setFirstName("Anwar");
         employee.setLastName("Ul haq");
