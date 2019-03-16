@@ -1,6 +1,7 @@
 package example.employee.main.controllers;
 
 import employee.example.data.commands.EmployeeCommand;
+import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
 import employee.example.data.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class EmployeeController {
     @PutMapping(value = {"employee/{id}"})
     public Employee replaceEmployee(@RequestBody Employee employee , @PathVariable Long id){
         return  employeeService.replaceAtId(id,employee);
+    }
+
+    @DeleteMapping(value = {"/leave/company/{id}"})
+    public Company leaveCompany(@PathVariable Long id){
+        return employeeService.leaveCompany(id);
     }
 
 //    @DeleteMapping(value = {"delete/{id}"})

@@ -2,6 +2,7 @@ package employee.example.data.services.JpaImpl;
 
 import employee.example.data.commands.EmployeeCommand;
 import employee.example.data.converters.EmployeeToEmployeeCommand;
+import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
 import employee.example.data.model.Result;
 import employee.example.data.repositories.EmployeeRepository;
@@ -10,7 +11,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -64,5 +67,24 @@ public class EmployeeJpaImpl implements EmployeeService {
     @Override
     public Employee replaceAtId(Long aLong, Employee object) {
         return null;
+    }
+
+    @Override
+    public Company leaveCompany(Long empId) {
+        try {
+            Optional<Employee> foundEmp =  employeeRepository.findById(empId);
+            if(foundEmp.isPresent()){
+                Company companyToRemove = foundEmp.get().getCompany();
+                companyToRemove.getEmployeeSet().removeIf(employee -> employee.getId().equals(empId));
+                foundEmp.get().setCompany(null);
+                employeeRepository.save(foundEmp.get());
+                return companyToRemove;
+            }else {
+                throw new Error("Employee is Not present");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

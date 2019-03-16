@@ -14,7 +14,10 @@ public class EmployeeToEmployeeCommand implements Converter<Employee, EmployeeCo
         }
 
         EmployeeCommand employeeCommand = new EmployeeCommand();
-        employeeCommand.setCompanyId(source.getCompany().getId());
+        if(source.getCompany() != null && source.getCompany().getId() != null)
+            employeeCommand.setCompanyId(source.getCompany().getId());
+        else
+            employeeCommand.setCompanyId(null);
         employeeCommand.setFirstName(source.getFirstName());
         employeeCommand.setLastName(source.getLastName());
         employeeCommand.setId(source.getId());

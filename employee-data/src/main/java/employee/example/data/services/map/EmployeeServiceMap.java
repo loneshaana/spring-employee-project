@@ -57,4 +57,19 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
     public Employee replaceAtId(Long id ,Employee employee){
         return super.replaceAtId(id,employee);
     }
+
+    @Override
+    public Company leaveCompany(Long empId) {
+        Employee employee = super.findById(empId);
+        if(employee != null){
+            Company company = employee.getCompany();
+            company.getEmployeeSet().removeIf(employee1 -> employee1.getId().equals(empId));
+            Company companyToLeave = employee.getCompany();
+            employee.setCompany(new Company());
+            System.out.println("REMOVE COMPANY OF ID "+companyToLeave.getId());
+            return companyToLeave;
+        }
+        System.out.println("EMPLOYEE NOT PRESENT WITH ID "+empId);
+        return null;
+    }
 }
