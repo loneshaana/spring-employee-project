@@ -3,6 +3,7 @@ package example.employee.main.controllers;
 import employee.example.data.commands.EmployeeCommand;
 import employee.example.data.model.Company;
 import employee.example.data.model.Employee;
+import employee.example.data.model.Result;
 import employee.example.data.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +47,10 @@ public class EmployeeController {
         return employeeService.leaveCompany(id);
     }
 
-//    @DeleteMapping(value = {"delete/{id}"})
-//    public Employee deleteEmployee(@PathVariable Long id){
-//         return  employeeService.deleteById(id);
-//    }
+
+    @DeleteMapping(value = {"/delete/{id}"})
+    public Result deleteEmployee(@PathVariable Long id){
+        return employeeService.deleteById(id);
+    }
 
 }

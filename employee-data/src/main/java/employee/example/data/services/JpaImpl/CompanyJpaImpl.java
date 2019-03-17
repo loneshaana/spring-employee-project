@@ -23,27 +23,34 @@ import java.util.Set;
 public class CompanyJpaImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final EmployeeService employeeService;
     private final CompanyCommandToCompany companyCommandToCompany;
     private final CompanyToCompanyCommand companyToCompanyCommand;
 
     @Autowired
-    public CompanyJpaImpl(CompanyRepository companyRepository,CompanyCommandToCompany companyCommandToCompany,CompanyToCompanyCommand companyToCompanyCommand,EmployeeService employeeService) {
+    public CompanyJpaImpl(CompanyRepository companyRepository,CompanyCommandToCompany companyCommandToCompany,CompanyToCompanyCommand companyToCompanyCommand) {
         this.companyRepository = companyRepository;
         this.companyCommandToCompany = companyCommandToCompany;
         this.companyToCompanyCommand = companyToCompanyCommand;
-        this.employeeService = employeeService;
     }
 
     @Override
     public Result fireEmployee(Long companyId, Long empId) {
         try{
-            Company gotCompany = this.findById(companyId);
-            Set<Employee> employees = gotCompany.getEmployeeSet();
-            Optional<Employee> employeeToDelete = employees.stream().filter(employee -> employee.getId().equals(empId)).findFirst();
-            if(employeeToDelete.isPresent()){
-                return employeeService.deleteById(employeeToDelete.get().getId());
+            Optional<Company> gotCompany = companyRepository.findById(companyId);
+            if(gotCompany.isPresent()){
+                Set<Employee> employees = gotCompany.get().getEmployeeSet();
+                Set<Employee> newEmployeeSet = new HashSet<>();
+
+                employees.forEach(employee -> {
+                    if(employee.getId().equals(empId)){
+                        employee.setCompany(null);
+                        return;
+                    }
+                });
+                companyRepository.save(gotCompany.get());
+                return new Result(true);
             }
+
         }catch (EmptyResultDataAccessException ex){
             ex.printStackTrace();
         }

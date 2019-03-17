@@ -49,7 +49,6 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
 
     @Override
     public void delete(Employee employee) {
-        // before deleting the employee remove it from the Company
         super.delete(employee);
     }
 
@@ -66,10 +65,8 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
             company.getEmployeeSet().removeIf(employee1 -> employee1.getId().equals(empId));
             Company companyToLeave = employee.getCompany();
             employee.setCompany(new Company());
-            System.out.println("REMOVE COMPANY OF ID "+companyToLeave.getId());
             return companyToLeave;
         }
-        System.out.println("EMPLOYEE NOT PRESENT WITH ID "+empId);
         return null;
     }
 }

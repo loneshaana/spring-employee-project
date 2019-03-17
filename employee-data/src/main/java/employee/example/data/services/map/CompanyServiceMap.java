@@ -42,8 +42,6 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
     public Company save(Company object) {
         if(object != null){
             Company savedCmp = super.save(object);
-            System.out.println("Saved Object Details");
-            System.out.println(savedCmp.getEmployeeSet());
             return savedCmp;
         }else{
             throw new Error("Object Is Required");
@@ -71,7 +69,7 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
         Set<Employee> newEmployeeList = new HashSet<>();
         employeeSet.forEach(employee -> {
             if(employee.getId().equals(empId)){
-                employee.setCompany(new Company());
+                employee.setCompany(null);
             }
             else {
                 newEmployeeList.add(employee);
@@ -79,8 +77,6 @@ public class CompanyServiceMap extends AbstractMapService<Company,Long> implemen
         });
         super.dataMap.get(companyId).setEmployeeSet(newEmployeeList);
         if(newEmployeeList.size() < employeeSet.size()) return new Result(true);
-//        super.dataMap.get(companyId).setEmployeeSet(employeeSet.stream().filter(employee -> !employee.getId().equals(empId)).collect(Collectors.toSet()));
-//        if(super.dataMap.get(companyId).getEmployeeSet().size() < employeeSet.size()) return new Result(true);
         return  new Result(false);
     }
 
