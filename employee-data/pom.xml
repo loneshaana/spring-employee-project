@@ -8,8 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <version>0.0.3-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
+
+    <version>0.0.1-SNAPSHOT</version>
     <artifactId>employee-data</artifactId>
     <groupId>data</groupId>
 
@@ -33,10 +34,10 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--</dependency>-->
 
         <!--<dependency>-->
             <!--<groupId>com.h2database</groupId>-->
